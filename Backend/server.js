@@ -3,10 +3,14 @@ import cors from"cors"
 import cookieParser from "cookie-parser"
 import authRouter from "./routes/authRouter.js"
 import { dbConnection } from "./dbConnection/db.js"
+import blogRouter from "./routes/blogRoutes.js"
 
 
 const app=express()
-app.use(cors())
+app.use(cors({
+    origin:"http://localhost:5173/",
+    credentials:true
+}))
 app.use(express.json())
 app.use(cookieParser())
 
@@ -15,6 +19,7 @@ app.get("/",(req,res)=>{
 })
 
 app.use('/api/auth',authRouter)
+app.use('/api/blog',blogRouter)
 
 dbConnection()
 
